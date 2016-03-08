@@ -15,7 +15,7 @@ type Database struct {
 	Name     string `json:"name"`
 	User     string `json:"user"`
 	Password string `json:"password"`
-	SSLMode  string `json:"ssl_mode"`
+	SSLMode  string `json:"sslmode"`
 }
 
 // Credentials with return the driver and credentials appropriate for Go's

@@ -18,9 +18,9 @@ type Database struct {
 	SSLMode  string `json:"ssl_mode"`
 }
 
-// Credentials with return a string of credentials appropriate for Go's
-// sql.Open function
-func (db Database) Credentials() string {
+// Credentials with return the driver and credentials appropriate for Go's
+// sql.Open function as strings
+func (db Database) Credentials() (string, string) {
 	// Only add the key if there is a value
 	var values []string
 	if db.Host != "" {
@@ -41,7 +41,7 @@ func (db Database) Credentials() string {
 	if db.SSLMode != "" {
 		values = append(values, fmt.Sprintf("sslmode=%s", db.SSLMode))
 	}
-	return strings.Join(values, " ")
+	return db.Driver, strings.Join(values, " ")
 }
 
 // ParseDatabasePath will create a Database using the given filepath.

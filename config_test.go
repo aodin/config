@@ -59,10 +59,10 @@ func TestConfig(t *testing.T) {
 
 	// Test Database
 	db := "host=localhost port=5432 dbname=db user=pg password=pass"
-	if conf.Database.Credentials() != db {
+	if _, dbconf := conf.Database.Credentials(); dbconf != db {
 		t.Errorf(
 			"Unexpected DB credentials: %s != %s",
-			conf.Database.Credentials(), db,
+			dbconf, db,
 		)
 	}
 

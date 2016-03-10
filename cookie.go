@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"net/http"
 	"os"
 	"time"
 )
@@ -17,6 +18,20 @@ type Cookie struct {
 	Name     string        `json:"name"`
 	Path     string        `json:"path"`
 	Secure   bool          `json:"secure"`
+}
+
+// Set calls http.SetCookie using the current Cookie config
+func (c Cookie) Set(w http.ResponseWriter, value string, expires time.Time) {
+	cookie := &http.Cookie{
+		Name:     c.Name,
+		Value:    value,
+		Path:     c.Path,
+		Domain:   c.Domain,
+		Expires:  expires,
+		HttpOnly: c.HttpOnly,
+		Secure:   c.Secure,
+	}
+	http.SetCookie(w, cookie)
 }
 
 // DefaultCookie is a default CookieConfig implementation. It expires after

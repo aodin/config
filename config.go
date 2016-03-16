@@ -23,6 +23,7 @@ type Config struct {
 	StaticDir   string   `json:"static"`
 	StaticURL   string   `json:"static_url"`
 	SecretKey   string   `json:"secret_key"`
+	Version     string   `json:"version"`
 	Database    Database `json:"database"`
 	Cookie      Cookie   `json:"cookie"`
 	SMTP        SMTP     `json:"smtp"`

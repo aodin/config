@@ -7,7 +7,7 @@ import (
 )
 
 func TestConfig(t *testing.T) {
-	conf, err := ParsePath("./test_fixtures/example.json")
+	conf, err := ParsePath("./testdata/example.json")
 	if err != nil {
 		t.Fatalf("ParsePath should not error")
 	}

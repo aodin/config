@@ -57,6 +57,23 @@ func TestConfig(t *testing.T) {
 		t.Errorf("Unexpected URL with proxy: %s != %s", conf.URL(), expect)
 	}
 
+	// StaticURL test
+	conf.StaticURL = "static/"
+	if conf.StaticAddress() != "https://example.com/static/" {
+		t.Errorf(
+			"unexpected static address: %s != https://example.com/static/",
+			conf.StaticAddress(),
+		)
+	}
+
+	conf.StaticURL = "/static/"
+	if conf.StaticAddress() != "https://example.com/static/" {
+		t.Errorf(
+			"unexpected static address: %s != https://example.com/static/",
+			conf.StaticAddress(),
+		)
+	}
+
 	// Test Database
 	db := "host=localhost port=5432 dbname=db user=pg password=pass"
 	if _, dbconf := conf.Database.Credentials(); dbconf != db {

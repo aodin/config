@@ -36,3 +36,24 @@ func TestDatabase(t *testing.T) {
 
 	// TODO without user/password?
 }
+
+func TestDatabase_ParseDatabaseURL(t *testing.T) {
+	rawurl := "postgres://admin:secret@localhost:5432/what?sslmode=disable"
+	db, err := ParseDatabaseURL(rawurl)
+	if err != nil {
+		t.Fatalf("failed to parse database URL: %s", err)
+	}
+
+	expected := Database{
+		Driver:   "postgres",
+		User:     "admin",
+		Password: "secret",
+		Host:     "localhost",
+		Port:     5432,
+		Name:     "what",
+		SSLMode:  "disable",
+	}
+	if expected != db {
+		t.Errorf("unexpected database config: %s != %s", expected, db)
+	}
+}
